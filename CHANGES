@@ -1,0 +1,41 @@
+==================================================
+Changes from 2004-11-19 00:00:00 +0000 to present.
+==================================================
+
+-------------------------------------------
+version 0.0001 at 2014-11-17 19:54:27 +0000
+-------------------------------------------
+
+  Change: 1bbc1123cff98ce96786520a6b601a593a6a78aa
+  Author: Naveed Massjouni <naveedm9@gmail.com>
+  Date : 2014-11-17 04:09:51 +0000
+
+    added create_charge and create_token 
+
+  Change: 94e7c217b79fc2a0a5ed4d74a73f64cf1da5a660
+  Author: Naveed Massjouni <naveedm9@gmail.com>
+  Date : 2014-11-13 23:37:22 +0000
+
+    next 
+
+  Change: d3a3df93b931a840100e269fdb29319b48f2bc6a
+  Author: Naveed Massjouni <naveedm9@gmail.com>
+  Date : 2014-11-12 17:12:44 +0000
+
+    require newer WebService::Client 
+
+  Change: 951e23fdd2f768757dc39937a0da0824cc8676e5
+  Author: Naveed Massjouni <naveedm9@gmail.com>
+  Date : 2014-11-12 16:00:10 +0000
+
+    added create_customer and update_customer and tests 
+
+  Change: 2507c608bfd38e8411d513d70130ecd13ec73bf9
+  Author: Naveed Massjouni <naveedm9@gmail.com>
+  Date : 2014-11-11 17:57:45 +0000
+
+    initial commit 
+
+================
+End of releases.
+================
