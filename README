@@ -4,7 +4,7 @@ NAME
 
 VERSION
 
-    version 0.0001
+    version 0.0100
 
 SYNOPSIS
 
@@ -62,6 +62,11 @@ METHODS
         while ($customers = $s->next($customers)) {
             ...
         }
+
+ create_card
+
+        create_card($data, customer_id => 'cus_123')
+        create_card($data, customer => $customer)
 
  create_charge
 

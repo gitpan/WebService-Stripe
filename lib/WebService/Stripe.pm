@@ -2,7 +2,7 @@ package WebService::Stripe;
 use Moo;
 with 'WebService::Client';
 
-our $VERSION = '0.0001'; # VERSION
+our $VERSION = '0.0100'; # VERSION
 
 use Carp qw(croak);
 use Method::Signatures;
@@ -34,15 +34,15 @@ method next(HashRef $thing!, HashRef :$query) {
         { %$query, starting_after => $starting_after } );
 }
 
-method create_customer(HashRef $cust) {
-    return $self->post( "/v1/customers", $cust );
+method create_customer(HashRef $data={}) {
+    return $self->post( "/v1/customers", $data );
 }
 
-method get_customer(Str $id!) {
+method get_customer(Str $id) {
     return $self->get( "/v1/customers/$id" );
 }
 
-method update_customer(Str $id!, HashRef $data!) {
+method update_customer(Str $id, HashRef $data) {
     return $self->post( "/v1/customers/$id", $data );
 }
 
@@ -51,12 +51,22 @@ method get_customers(HashRef :$query) {
     return $self->get( "/v1/customers", $query );
 }
 
-method create_token(HashRef $data) {
-    return $self->post( "/v1/tokens", $data );
+method create_card(HashRef $data, :$customer_id!) {
+    return $self->post( "/v1/customers/$customer_id/cards", $data );
 }
 
-method create_charge(HashRef $data) {
-    return $self->post( "/v1/charges", $data );
+method create_charge(HashRef $data, :$stripe_account) {
+    my $headers = {
+        ( stripe_account => $stripe_account ) x!! $stripe_account,
+    };
+    return $self->post( "/v1/charges", $data, headers => $headers );
+}
+
+method create_token(HashRef $data, :$stripe_account) {
+    my $headers = {
+        ( stripe_account => $stripe_account ) x!! $stripe_account,
+    };
+    return $self->post( "/v1/tokens", $data, headers => $headers );
 }
 
 # ABSTRACT: Stripe API bindings
@@ -76,7 +86,7 @@ WebService::Stripe - Stripe API bindings
 
 =head1 VERSION
 
-version 0.0001
+version 0.0100
 
 =head1 SYNOPSIS
 
@@ -137,6 +147,11 @@ Example:
     while ($customers = $s->next($customers)) {
         ...
     }
+
+=head2 create_card
+
+    create_card($data, customer_id => 'cus_123')
+    create_card($data, customer => $customer)
 
 =head2 create_charge
 

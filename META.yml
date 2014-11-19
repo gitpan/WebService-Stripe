@@ -26,8 +26,8 @@ requires:
   Carp: 0
   Method::Signatures: 0
   Moo: 0
-  WebService::Client: 0.0100
+  WebService::Client: 0.0202
 resources:
   bugtracker: https://github.com/Crowdtilt/WebService-Stripe/issues
   repository: git://github.com/Crowdtilt/WebService-Stripe.git
-version: 0.0001
+version: 0.0100
