@@ -2,7 +2,7 @@ package WebService::Stripe;
 use Moo;
 with 'WebService::Client';
 
-our $VERSION = '0.0200'; # VERSION
+our $VERSION = '0.0300'; # VERSION
 
 use Carp qw(croak);
 use Method::Signatures;
@@ -47,7 +47,6 @@ method update_customer(Str $id, HashRef $data) {
 }
 
 method get_customers(HashRef :$query) {
-    $query ||= {};
     return $self->get( "/v1/customers", $query );
 }
 
@@ -59,25 +58,20 @@ method get_charge(Str $id) {
     return $self->get( "/v1/charges/$id" );
 }
 
-method create_charge(HashRef $data, :$stripe_account) {
-    my $headers = {
-        ( stripe_account => $stripe_account ) x!! $stripe_account,
-    };
-    return $self->post( "/v1/charges", $data, headers => $headers );
+method create_charge(HashRef $data) {
+    return $self->post( "/v1/charges", $data );
 }
 
-method capture_charge(Str $id, HashRef :$data={}, :$stripe_account) {
-    my $headers = {
-        ( stripe_account => $stripe_account ) x!! $stripe_account,
-    };
-    return $self->post( "/v1/charges/$id/capture", $data, headers => $headers );
+method capture_charge(Str $id, HashRef :$data) {
+    return $self->post( "/v1/charges/$id/capture", $data );
 }
 
-method create_token(HashRef $data, :$stripe_account) {
-    my $headers = {
-        ( stripe_account => $stripe_account ) x!! $stripe_account,
-    };
-    return $self->post( "/v1/tokens", $data, headers => $headers );
+method refund_charge(Str $id, HashRef :$data) {
+    return $self->post( "/v1/charges/$id/refunds", $data );
+}
+
+method create_token(HashRef $data) {
+    return $self->post( "/v1/tokens", $data );
 }
 
 # ABSTRACT: Stripe API bindings
@@ -97,7 +91,7 @@ WebService::Stripe - Stripe API bindings
 
 =head1 VERSION
 
-version 0.0200
+version 0.0300
 
 =head1 SYNOPSIS
 
@@ -162,7 +156,6 @@ Example:
 =head2 create_card
 
     create_card($data, customer_id => 'cus_123')
-    create_card($data, customer => $customer)
 
 =head2 get_charge
 
@@ -181,6 +174,13 @@ Creates a charge.
     capture_charge($id, data => $data)
 
 Captures the charge with the given id.
+The data param is optional.
+
+=head2 refund_charge
+
+    refund_charge($id, data => $data)
+
+Refunds the charge with the given id.
 The data param is optional.
 
 =head2 create_token
