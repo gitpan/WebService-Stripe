@@ -2,7 +2,7 @@ package WebService::Stripe;
 use Moo;
 with 'WebService::Client';
 
-our $VERSION = '0.0300'; # VERSION
+our $VERSION = '0.0400'; # VERSION
 
 use Carp qw(croak);
 use Method::Signatures;
@@ -74,6 +74,26 @@ method create_token(HashRef $data) {
     return $self->post( "/v1/tokens", $data );
 }
 
+method get_token(Str $id) {
+    return $self->get( "/v1/tokens/$id" );
+}
+
+method create_account(HashRef $data) {
+    return $self->post( "/v1/accounts", $data );
+}
+
+method get_account(Str $id) {
+    return $self->get( "/v1/accounts/$id" );
+}
+
+method update_account(Str $id, HashRef :$data) {
+    return $self->post( "/v1/accounts/$id", $data );
+}
+
+method add_bank(HashRef $data, Str :$account_id) {
+    return $self->post( "/v1/accounts/$account_id/bank_accounts", $data );
+}
+
 # ABSTRACT: Stripe API bindings
 
 
@@ -91,7 +111,7 @@ WebService::Stripe - Stripe API bindings
 
 =head1 VERSION
 
-version 0.0300
+version 0.0400
 
 =head1 SYNOPSIS
 
@@ -183,9 +203,48 @@ The data param is optional.
 Refunds the charge with the given id.
 The data param is optional.
 
+=head2 get_token
+
+    get_token($id)
+
 =head2 create_token
 
     create_token($data)
+
+=head2 get_account
+
+    get_account($id)
+
+=head2 create_account
+
+    create_account($data)
+
+=head2 update_account
+
+    update_account($id, data => $data)
+
+=head2 add_bank
+
+    add_bank($data, account_id => $account_id)
+
+Add a new bank account.
+
+Example:
+
+    my $account = $stripe->create_account({
+        managed => 'true',
+        country => 'CA',
+    });
+
+    my $bank = $s->add_bank(
+        {
+            'bank_account[country]'        => 'CA',
+            'bank_account[currency]'       => 'cad',
+            'bank_account[routing_number]' => '00022-001',
+            'bank_account[account_number]' => '000123456789',
+        },
+        account_id => $account->{id},
+    );
 
 =head1 AUTHOR
 

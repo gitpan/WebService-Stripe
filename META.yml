@@ -30,4 +30,4 @@ requires:
 resources:
   bugtracker: https://github.com/Crowdtilt/WebService-Stripe/issues
   repository: git://github.com/Crowdtilt/WebService-Stripe.git
-version: 0.0300
+version: 0.0400

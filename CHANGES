@@ -1,10 +1,19 @@
 ==================================================
-Changes from 2004-12-01 00:00:00 +0000 to present.
+Changes from 2004-12-03 00:00:00 +0000 to present.
 ==================================================
 
 -------------------------------------------
-version 0.0300 at 2014-11-29 13:27:28 +0000
+version 0.0400 at 2014-12-01 10:56:01 +0000
 -------------------------------------------
+
+  Change: 5beeefac1cd62b8de7220a00ba0346342099eaf5
+  Author: Naveed Massjouni <naveed@vt.edu>
+  Date : 2014-12-01 05:52:32 +0000
+
+    v0.0400 added support for the new marketplace api accounts and banks
+
+    Added get_token, create_account, get_account, update_account, and
+    add_bank. 
 
   Change: b723faa726f885c74518d03d458e5e81f65e4b4e
   Author: Naveed Massjouni <naveed@vt.edu>
