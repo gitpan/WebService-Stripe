@@ -10,4 +10,5 @@ lib/WebService/Stripe.pm
 t/00-compile.t
 t/01-customers.t
 t/02-charges.t
+t/03-banks.t
 t/lib/Common.pm
