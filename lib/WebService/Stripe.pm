@@ -2,7 +2,7 @@ package WebService::Stripe;
 use Moo;
 with 'WebService::Client';
 
-our $VERSION = '0.0500'; # VERSION
+our $VERSION = '0.0600'; # VERSION
 
 use Carp qw(croak);
 use Method::Signatures;
@@ -106,6 +106,26 @@ method get_banks(Str :$account_id!) {
     return $self->get( "/v1/accounts/$account_id/bank_accounts" );
 }
 
+method create_transfer(HashRef $data) {
+    return $self->post( "/v1/transfers", $data );
+}
+
+method get_transfer(Str $id) {
+    return $self->get( "/v1/transfers/$id" );
+}
+
+method get_transfers(HashRef :$query) {
+    return $self->get( "/v1/transfers", $query );
+}
+
+method update_transfer(Str $id, HashRef :$data!) {
+    return $self->post( "/v1/transfers/$id", $data );
+}
+
+method cancel_transfer(Str $id) {
+    return $self->post( "/v1/transfers/$id/cancel" );
+}
+
 # ABSTRACT: Stripe API bindings
 
 
@@ -123,7 +143,7 @@ WebService::Stripe - Stripe API bindings
 
 =head1 VERSION
 
-version 0.0500
+version 0.0600
 
 =head1 SYNOPSIS
 
@@ -275,6 +295,26 @@ Example:
 =head2 update_bank
 
     update_bank($id, account_id => $account_id, data => $data)
+
+=head2 create_transfer
+
+    create_transfer($data)
+
+=head2 get_transfer
+
+    get_transfer($id)
+
+=head2 get_transfers
+
+    get_transfers(query => $query)
+
+=head2 update_transfer
+
+    update_transfer($id, data => $data)
+
+=head2 cancel_transfer
+
+    cancel_transfer($id)
 
 =head1 AUTHOR
 

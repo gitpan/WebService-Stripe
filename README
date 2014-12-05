@@ -4,7 +4,7 @@ NAME
 
 VERSION
 
-    version 0.0500
+    version 0.0600
 
 SYNOPSIS
 
@@ -151,6 +151,26 @@ METHODS
  update_bank
 
         update_bank($id, account_id => $account_id, data => $data)
+
+ create_transfer
+
+        create_transfer($data)
+
+ get_transfer
+
+        get_transfer($id)
+
+ get_transfers
+
+        get_transfers(query => $query)
+
+ update_transfer
+
+        update_transfer($id, data => $data)
+
+ cancel_transfer
+
+        cancel_transfer($id)
 
 AUTHOR
 
